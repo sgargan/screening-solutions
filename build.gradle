@@ -1,0 +1,35 @@
+
+apply plugin: 'java'
+apply plugin: 'jacoco'
+apply plugin: 'application'
+
+repositories {
+    mavenCentral()
+}
+
+mainClassName = 'io.intercom.problems.proximity.Main'
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.5'
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.3'
+    testCompile "junit:junit:4.11"
+    testCompile "org.powermock:powermock-mockito-release-full:1.6.3"
+}
+
+
+test {
+  jacoco {
+    append = false
+    destinationFile = file("$buildDir/jacoco/jacocoTest.exec")
+    classDumpFile = file("$buildDir/jacoco/classpathdumps")
+  }
+}
+
+jacocoTestReport {
+  reports {
+    html {
+      enabled true
+    }
+  }
+}
